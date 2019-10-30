@@ -14,13 +14,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Alunos Cadastrados</title>
 </head>
 <body>
-    <label>Curso</label>
+    <label>ALUNOS CADASTRADOS</label>
         <ul name="aluno" id="">
             <?php foreach($alunos as $aluno): ?>
-                <li value="<?php echo $aluno['id']; ?>">
+                <li>
                     <?php echo $aluno['nome']; ?> 
                 </li>
             <?php endforeach; ?>
