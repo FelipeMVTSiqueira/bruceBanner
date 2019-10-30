@@ -21,7 +21,9 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h2>Cadastro de Aluno</h2>
+    <div class="container d-flex justify-content-center mt-3">
+        <h2>Cadastro de Aluno</h2>
+    </div>
     <div class="container d-flex justify-content-center mt-5">
         <form action="cadastroAluno.php" method="post">
             <label>Nome do Aluno</label>
@@ -39,5 +41,8 @@
             <button type="submit">Cadastrar</button>
         </form>
     </div>
+        <div class="container d-flex justify-content-center mt-5">
+            <a href="alunosCadastrados.php">Ver alunos Cadastrados</a>
+        </div>
 </body>
 </html>
