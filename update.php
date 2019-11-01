@@ -14,16 +14,13 @@
         exit;
     }
     //sempre que tem informação que vem do usuario faz com metodo prepare
-    $query = $db->prepare('SELECT * FROM alunos WHERE id=?');
-    $query->execute([$id]);
-    $aluno = $query->fetch(PDO::FETCH_ASSOC);
     //var_dump($aluno);
     if($_POST != []){
         $nomeAluno = $_POST['nomeAluno'];
         $raAluno = $_POST['raAluno'];
         $cursoId = $_POST['curso'];
         $id = $_POST['id'];
-
+        
         $query = $db->prepare('UPDATE alunos 
                                SET nome = :nome, ra = :ra, curso_id = :curso_id 
                                WHERE id = :id');
@@ -32,10 +29,13 @@
             "curso_id" => $cursoId,
             "ra" => $raAluno,
             "nome" => $nomeAluno
-        ]);
-    }
-
-?>
+            ]);
+        }
+        
+        $query = $db->prepare('SELECT * FROM alunos WHERE id=?');
+        $query->execute([$id]);
+        $aluno = $query->fetch(PDO::FETCH_ASSOC);
+        ?>
 
 
 <!DOCTYPE html>
