@@ -13,9 +13,8 @@
     }
     //sempre que tem informação que vem do usuario faz com metodo prepare
     $query = $db->prepare('SELECT * FROM alunos WHERE id=?');
-    $aluno = $query->execute([$id]);
-    $aluno = $aluno->fetch(PDO::FETCH_ASSOC);
-
+    $query->execute([$id]);
+    $aluno = $query->fetch(PDO::FETCH_ASSOC);
     var_dump($aluno);
 
 ?>

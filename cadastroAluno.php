@@ -3,6 +3,7 @@
     $raAluno = $_POST['raAluno'];
     $cursoId = $_POST['curso'];
     include_once('config/conexo.php');
+    $db = conectarBanco();
     //query eh destinado a querys fixas (o usuario nao escolhe nada por isso nao usaremos)
     //por segurança
     //primeiro prepara, depois executa para garantir que apenas os valores sejam executados
@@ -12,7 +13,7 @@
         "ra"=>$raAluno,
         "curso_id"=>$cursoId]);
 
-        $db = conectarBanco();
+
 
         //pra poucas coisas eh melhor esse e quando tem muita info usar o anterior
     //var_dump($resultado);
