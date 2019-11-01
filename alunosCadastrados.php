@@ -1,8 +1,6 @@
 <?php
-    $host = 'mysql:host=localhost;dbname=escola;port=3307';
-    $user = 'root';
-    $pass = '';
-    $db = new PDO($host, $user, $pass);
+    include_once('config/conexo.php');
+    $db = conectarBanco();
     $query = $db->query('SELECT * from alunos');
     $alunos = $query->fetchAll(PDO::FETCH_ASSOC);
 ?>

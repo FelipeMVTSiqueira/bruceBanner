@@ -4,6 +4,20 @@
     $query = $db->query('SELECT * from cursos');
     $cursos = $query->fetchAll(PDO::FETCH_ASSOC);
     //var_dump($cursos);
+    //recuperando o id do aluno na url escrita no chrome (comando abaixo)
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
+    } else {
+        echo "Voce deve passar um id no url";
+        exit;
+    }
+    //sempre que tem informação que vem do usuario faz com metodo prepare
+    $query = $db->prepare('SELECT * FROM alunos WHERE id=?');
+    $aluno = $query->execute([$id]);
+    $aluno = $aluno->fetch(PDO::FETCH_ASSOC);
+
+    var_dump($aluno);
+
 ?>
 
 
