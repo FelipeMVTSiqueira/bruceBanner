@@ -24,4 +24,3 @@
         echo "Aluno não foi cadastrado corretamente"."<br>";
     }
 ?>
-<a href="alunosCadastrados.php">Ver alunos Cadastrados</a>

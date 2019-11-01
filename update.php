@@ -5,17 +5,35 @@
     $cursos = $query->fetchAll(PDO::FETCH_ASSOC);
     //var_dump($cursos);
     //recuperando o id do aluno na url escrita no chrome (comando abaixo)
+    
     if(isset($_GET['id'])){
         $id = $_GET['id'];
+    } else if(isset($_POST['id'])){
     } else {
-        echo "Voce deve passar um id no url";
+        echo "Voce deve passar um id cara";
         exit;
     }
     //sempre que tem informação que vem do usuario faz com metodo prepare
     $query = $db->prepare('SELECT * FROM alunos WHERE id=?');
     $query->execute([$id]);
     $aluno = $query->fetch(PDO::FETCH_ASSOC);
-    var_dump($aluno);
+    //var_dump($aluno);
+    if($_POST != []){
+        $nomeAluno = $_POST['nomeAluno'];
+        $raAluno = $_POST['raAluno'];
+        $cursoId = $_POST['curso'];
+        $id = $_POST['id'];
+
+        $query = $db->prepare('UPDATE alunos 
+                               SET nome = :nome, ra = :ra, curso_id = :curso_id 
+                               WHERE id = :id');
+        $query->execute([
+            "id" => $id,
+            "curso_id" => $cursoId,
+            "ra" => $raAluno,
+            "nome" => $nomeAluno
+        ]);
+    }
 
 ?>
 
@@ -36,24 +54,29 @@
         <h2>Cadastro de Aluno</h2>
     </div>
     <div class="container d-flex justify-content-start mt-5">
-        <form action="cadastroAluno.php" method="post">
+        <form action="update.php?id= <?php echo $id; ?> " method="post">
+            <input type="text" name="id" readonly hidden value="<?php echo $id; ?>">
             <label>Nome do Aluno</label>
-            <input type="text" name="nomeAluno">
+            <input type="text" name="nomeAluno" value="<?php echo $aluno['nome'] ?>">
             <label>Ra do Aluno</label>
-            <input type="text" name="raAluno">
+            <input type="text" name="raAluno" value="<?php echo $aluno['ra'] ?> ">
             <label>Curso</label>
-            <select name="curso" id="">
+            <select name="curso" id="" value="<?php echo $aluno['curso'] ?>">>
                 <?php foreach($cursos as $curso): ?>
-                    <option value="<?php echo $curso['id']; ?>">
-                        <?php echo $curso['nome']; ?> 
+                    <?php if($curso['id'] == $aluno['curso_id']): ?>
+                    <option selected value="<?php echo $curso['id']; ?>">
+                        <?= $curso['nome']; ?> 
                     </option>
+                    <?php else: ?>
+                    <option value="<?php echo $curso['id']; ?>">
+                        <?= $curso['nome']; ?> 
+                    </option>
+                    <?php endif; ?>
+
                 <?php endforeach; ?>
             </select>
-            <button type="submit">Cadastrar</button>
+            <button type="submit">Atualizar</button>
         </form>
     </div>
-        <div class="container d-flex justify-content-end mt-5">
-            <a href="alunosCadastrados.php">Ver alunos Cadastrados</a>
-        </div>
 </body>
 </html>
